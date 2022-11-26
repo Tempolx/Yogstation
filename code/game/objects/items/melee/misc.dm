@@ -508,6 +508,81 @@
 	target.Jitter(20)
 	target.stuttering += 20
 
+/obj/item/melee/classic_baton/telescopic/contracter_quarterstaff
+	name = "contracter quarterstaff"
+	desc = "A advanced, compact, specalized quarterstaff given to elite syndicate contracters. Applys strong electrical shocks to the target, while also being capable of blocking"
+	icon_state = "contracter_quarterstaff_0"
+	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	item_state = "contracter_quarterstaff_unextended"
+	slot_flags = ITEM_SLOT_BELT
+	item_flags = NONE
+	force = 9
+	block_chance = 60
+	wound_bonus = 30
+
+	cooldown = 10
+	stamina_damage = 95
+	affect_silicon = TRUE
+	on_sound = 'sound/weapons/contractorbatonextend.ogg'
+	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
+	stun_animation = TRUE
+	knockdown_time_carbon = 2 SECONDS
+
+	on_icon_state = "contracter_quarterstaff_1"
+	off_icon_state = "contracter_quarterstaff_0"
+	on_item_state = "contracter_quarterstaff_extended"
+	force_on = 19
+	force_off = 9
+	weight_class_on = WEIGHT_CLASS_BULKY
+
+/obj/item/melee/classic_baton/telescopic/contractor_quarterstafff/stun(mob/living/target, mob/living/user)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+			playsound(target, 'sound/weapons/genhit.ogg', 50, 1)
+			return
+		var/datum/martial_art/M = H.check_block()
+		if(M)
+			M.handle_counter(target, user)
+			return
+
+	var/list/desc = get_stun_description(target, user)
+
+	if (stun_animation)
+		user.do_attack_animation(target)
+
+	playsound(get_turf(src), on_stun_sound, 75, 1, -1)
+	target.Knockdown(knockdown_time_carbon)
+	target.adjustStaminaLoss(stamina_damage)
+	additional_effects_carbon(target, user)
+
+	log_combat(user, target, "stunned", src)
+	add_fingerprint(user)
+
+	target.visible_message(desc["visible"], desc["local"])
+
+	if(!iscarbon(user))
+		target.LAssailant = null
+	else
+		target.LAssailant = user
+	cooldown_check = world.time + cooldown
+
+/obj/item/melee/classic_baton/telescopic/contractor_quarterstaff/get_wait_description()
+	return span_danger("The quarterstaff is still charging!")
+
+/obj/item/melee/classic_baton/telescopic/contracter_quarterstaff/get_on_description()
+	. = list()
+
+	.["local_on"] = span_danger("You extend the quarterstaff.")
+	.["local_off"] = span_danger("You collapse the quarterstaff.")
+
+	return .
+
+/obj/item/melee/classic_baton/telescopic/contractor_quarterstaff/additional_effects_carbon(mob/living/target, mob/living/user)
+	target.Jitter(40)
+	target.stuttering += 30
+
 /obj/item/melee/supermatter_sword
 	name = "supermatter sword"
 	desc = "In a station full of bad ideas, this might just be the worst."
