@@ -137,7 +137,7 @@
 
 /datum/contractor_item/contractor_quarterstaff
 	name = "Contracter Quarterstaff"
-	desc = "A advanced quarterstaff, capable of blocking, stunning, muting the target, and dealing heavier blows"
+	desc = "A advanced quarterstaff, capable of blocking, stunning, and dealing heavier blows"
 	item = /obj/item/melee/classic_baton/telescopic/contracter_quarterstaff
 	item_icon = "shield"
 	limited = 1

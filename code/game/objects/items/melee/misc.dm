@@ -536,7 +536,7 @@
 	force_off = 9
 	weight_class_on = WEIGHT_CLASS_BULKY
 
-/obj/item/melee/classic_baton/telescopic/contractor_quarterstafff/stun(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/telescopic/contractor_quarterstaff/stun(mob/living/target, mob/living/user)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
