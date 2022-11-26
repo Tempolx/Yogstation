@@ -135,6 +135,14 @@
 		/// Set our target list with the new set we've generated.
 		hub.assigned_targets = new_target_list
 
+/datum/contractor_item/contractor_quarterstaff
+	name = "Contracter Quarterstaff"
+	desc = "A advanced quarterstaff, capable of blocking, stunning, muting the target, and dealing heavier blows"
+	item = /obj/item/melee/classic_baton/telescopic/contracter_quarterstaff
+	item_icon = "shield"
+	limited = 1
+	cost = 2
+
 /datum/contractor_item/contractor_pinpointer
 	name = "Contractor Pinpointer"
 	desc = "A pinpointer that finds targets even without active suit sensors. Due to taking advantage of an exploit within the system, it can't pinpoint to the same accuracy as the traditional models. Becomes permanently locked to the user that first activates it."
